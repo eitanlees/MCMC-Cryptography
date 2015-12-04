@@ -1,0 +1,730 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{listings} 
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    \lstset{basicstyle=\ttfamily, escapeinside={<@}{@>}}
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Cryptography Project}
+    \author{by Eitan Lees and Juan Llanos}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    % \section{Cryptography Project}\label{cryptography-project}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}svg\PYZsq{}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{pprint} \PY{k+kn}{as} \PY{n+nn}{pp}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k+kn}{import} \PY{n}{datetime}
+        \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k+kn}{import} \PY{n}{combinations}
+        \PY{k+kn}{import} \PY{n+nn}{string}
+        \PY{k+kn}{import} \PY{n+nn}{pandas}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k+kn}{import} \PY{n}{Counter}
+\end{Verbatim}
+
+    \section{Introduction}\label{introduction}
+
+    Our goal is to decipher a secret message. First let's read in the secret
+message to see what we are dealing with
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{with} \PY{n+nb}{open} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{data/encyrption.txt}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{myfile}\PY{p}{:}
+            \PY{n}{message}\PY{o}{=}\PY{n}{myfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k}{print}\PY{p}{(}\PY{n}{message}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+BIU V DICT ZMEF VBZFU MZ NVJ OJGFUFL MCZI ZGMJ NIUDL IB JIUUIN VCL ZUIOQDF QK ZGF HVUMJG JOUTFIC MZ UFEVMCFL V EVZZFU IB PICJMLFUVQDF LIOQZ NGFZGFU ZGF PGMDL NIODL JOURMRF ZI QFVU VCK CVEF VZ VDD MC NGMPG PVJF MZ MJ JIEFNGVZ EIUF ZGVC HUIQVQDF ZGVZ ZGFJF EFEIMUJ NIODL CFRFU GVRF VHHFVUFL IU MB ZGFK GVL ZGVZ QFMCT PIEHUMJFL NMZGMC V PIOHDF IB HVTFJ ZGFK NIODL GVRF HIJJFJJFL ZGF MCFJZMEVQDF EFUMZ IB QFMCT ZGF EIJZ PICPMJF VCL BVMZGBOD JHFPMEFC IB QMITUVHGK FYZVCZ MC ZGF DMZFUVZOUF IB VCK VTF IU PIOCZUK
+    \end{lstlisting}
+
+    Our principal assumption is that the secret message was coded with a
+unique 1-1 substitution mapping among the 26 letters of the alphabet (A
+\(\rightarrow\) L, B \(\rightarrow\) R, etc). To break the code we are
+going to need to find the correct maping \(f\) that reveals the secret.
+
+\[
+f : \{`A`,  `B`, \dots, `Z`, `\mbox{ }`\} \rightarrow \{`O`,  `F`, \dots, `J`, `\mbox{ }`\}
+\] Furthermore, we assume the message is written in capital letters,
+space will always map to space, and the message has no punctuation.
+
+First we will need a function to generate such a maping
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}map}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{alphabet} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{uppercase}
+            \PY{n}{key} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{alphabet}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{alphabet}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{myMap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{alphabet}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{)}
+            \PY{n}{myMap}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}
+            \PY{k}{return} \PY{n}{myMap}
+\end{Verbatim}
+
+    The \texttt{dict} data structure seemed like a good way to store these
+mappings. Lets generate a random mapping to take a look at how
+\texttt{get\_map} works
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{myMap} \PY{o}{=} \PY{n}{get\PYZus{}map}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pp}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{myMap}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{' ': ' ',
+ 'A': 'F',
+ 'B': 'T',
+ 'C': 'W',
+ 'D': 'D',
+ 'E': 'K',
+ 'F': 'I',
+ 'G': 'B',
+ 'H': 'C',
+ 'I': 'Z',
+ 'J': 'H',
+ 'K': 'A',
+ 'L': 'Y',
+ 'M': 'P',
+ 'N': 'X',
+ 'O': 'M',
+ 'P': 'L',
+ 'Q': 'G',
+ 'R': 'J',
+ 'S': 'Q',
+ 'T': 'N',
+ 'U': 'U',
+ 'V': 'S',
+ 'W': 'E',
+ 'X': 'V',
+ 'Y': 'O',
+ 'Z': 'R'\}
+    \end{Verbatim}
+
+    Now that we having mapping, \(f\), we need a way to apply that mapping
+to encrypt or decrypt some text.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{encrypt}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{myMap}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    The \texttt{encrypt} function takes a string \texttt{s} and applies the
+mapping \texttt{mymap} and returns the encrypted string. Lets give our
+new mapping a try with a test string.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{test} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{THIS IS A SUPER SECRET MESSAGE}\PY{l+s}{\PYZsq{}}
+        \PY{n}{secret} \PY{o}{=} \PY{n}{encrypt}\PY{p}{(}\PY{n}{test}\PY{p}{,}\PY{n}{myMap}\PY{p}{)}
+        \PY{k}{print} \PY{n}{secret}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+NCZQ ZQ F QULKJ QKWJKN PKQQFBK
+    \end{Verbatim}
+
+    Note that the way \texttt{encrypt} as been defined it is not reversable
+but a \texttt{decrypt} function could be implemented
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{decrypt}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}\PY{p}{:}
+            \PY{n}{inv\PYZus{}map} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{v}\PY{p}{:} \PY{n}{k} \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{myMap}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+            \PY{k}{return} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{inv\PYZus{}map}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    By applying the inverted mapping to the encrypted secret we should
+recover the origial message
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{anothertest} \PY{o}{=} \PY{n}{decrypt}\PY{p}{(}\PY{n}{secret}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}
+        \PY{k}{print} \PY{n}{anothertest}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+THIS IS A SUPER SECRET MESSAGE
+    \end{Verbatim}
+
+    \section{Methods}\label{methods}
+
+    In order decode the message we need to find the inverse mapping
+
+\[f^{-1}:\{`P`, `T`, \dots, `O`, `\mbox{ }`\} \rightarrow \{`A`, `B`, \dots, `Z`, `\mbox{ }`\}\]
+
+To crack this code we are going to utilize a matrix \(M_{ij}\) that
+represents the transition frequency from the \(i^{th}\) letter of the
+alphabet to the \(j^{th}\). This matrix was calculated using ``War and
+Peace'', ``Oliver Twist'', and ``King James Bible'' from Project
+Gutenberg and was provided for the assignment. Now we will read in the
+pair frequence matrix for the 26 letters of the alphabet and also the
+space character
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{pairFreq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{data/pairFreq.dat}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pairFreq}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (27, 27)
+\end{Verbatim}
+        
+    We implemented two ways to tackle this problem: an optimization
+approach, and a sampling approach.
+
+    \subsection{Optimization Approach}\label{optimization-approach}
+
+First we chose to approach the problem from an optimization perspective.
+This method will quickly converge on the most likely outcome by
+maximizing a rank function outlined below.
+
+We rank a string as being english if the sum of the \(M_{ij}\) is
+maximized \[
+R(f) = \sum_{i=1}^{N-1} M(f(s_i), f(s_{i+1}))
+\] where \(N\) is the number of letters in the message, and \(s_i\) is
+the \(i^{th}\) letter of the encrypted message. This approach was chosen
+to avoid the effects of logging the zero elements in the frequency
+matrix. Using an additive rank avoids this problem but will behave
+differently than the multiplicative ranking outlined in the
+instructions. We define our rank fucntion as such
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{rate\PYZus{}string}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lookup} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{uppercase} \PY{o}{+} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{n}{lookup}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{n}{lookup}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    where \texttt{M} is the pairwise frequency matrix and \texttt{s} is a
+string to be ranked. Our strategy will be to rank the current string,
+then apply our mapping to generate a new string, and test to see if our
+new string had a better ranking. If our mapping doesn't increase the
+rank then we will swap two of the letters in our mapping and again test
+to see if this new mapping provides a better ranked string. If the rank
+is better than the new mapping is kept and the process is repeated. The
+last function needed to attempt this algorithm is one to perform these
+swaps
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{key\PYZus{}swap}\PY{p}{(}\PY{n}{myMap}\PY{p}{,} \PY{n}{swap\PYZus{}pick}\PY{p}{)}\PY{p}{:}
+             \PY{n}{swapMap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{myMap}\PY{p}{)}
+             \PY{n}{swapMap}\PY{p}{[}\PY{n}{swap\PYZus{}pick}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{myMap}\PY{p}{[}\PY{n}{swap\PYZus{}pick}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{swapMap}\PY{p}{[}\PY{n}{swap\PYZus{}pick}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{myMap}\PY{p}{[}\PY{n}{swap\PYZus{}pick}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+             \PY{k}{return} \PY{n}{swapMap}
+\end{Verbatim}
+
+    Here \texttt{myMap} is the mapping and \texttt{swap\_pick} is a randomly
+generated string of the letters you want to swap. Now all that is left
+is to write a driver function to perform the optimization
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{M}\PY{p}{,} \PY{n}{myMap}\PY{p}{,} \PY{n}{nsteps} \PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{allSwaps} \PY{o}{=} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{combinations}\PY{p}{(}\PY{n}{string}\PY{o}{.}\PY{n}{uppercase}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+             \PY{n}{p} \PY{o}{=} \PY{n}{rate\PYZus{}string}\PY{p}{(}\PY{n}{pairFreq}\PY{p}{,} \PY{n}{oldS}\PY{p}{)}
+             \PY{n}{newp} \PY{o}{=} \PY{l+m+mf}{0.0}
+             \PY{n}{oldmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{myMap}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nsteps}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mySwap} \PY{o}{=} \PY{n}{allSwaps}\PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{allSwaps}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{newmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{key\PYZus{}swap}\PY{p}{(}\PY{n}{oldmap}\PY{p}{,} \PY{n}{mySwap}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{newS} \PY{o}{=} \PY{n}{encrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{newmap}\PY{p}{)}
+                 \PY{n}{newp} \PY{o}{=} \PY{n}{rate\PYZus{}string}\PY{p}{(}\PY{n}{pairFreq}\PY{p}{,} \PY{n}{newS}\PY{p}{)}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{p} \PY{o}{\PYZlt{}} \PY{n}{newp}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{oldmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{newmap}\PY{p}{)}
+                     \PY{n}{p} \PY{o}{=} \PY{n}{newp}
+                     \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+             \PY{n}{t1} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tdiff} \PY{o}{=} \PY{n}{t1}\PY{o}{\PYZhy{}}\PY{n}{t0}
+         
+             \PY{c}{\PYZsh{}print \PYZdq{}Total run time: \PYZdq{} + str(tdiff)[2:10] + \PYZdq{}s\PYZdq{}}
+             \PY{c}{\PYZsh{}print \PYZdq{}p = \PYZdq{} + str(p)}
+             \PY{c}{\PYZsh{}print \PYZdq{}Acceptance Ratio = \PYZdq{} + str(100*float(t)/float(nsteps)) + \PYZsq{}\PYZpc{}\PYZsq{}}
+             \PY{k}{return} \PY{n}{encrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{oldmap}\PY{p}{)}
+\end{Verbatim}
+
+    It's important to note here that we always accept the change if it
+increases our rank. This is known as ``simulated quenching'' and is
+useful for a local optimization but might get stuck, not finding the
+global maxima.
+
+    \subsubsection{Optimization Results}\label{optimization-results}
+
+Lets run our simulation to see what we get
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{message}\PY{p}{,} \PY{n}{pairFreq}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+<@\color{outcolor}Out[{\color{outcolor}13}]:@> 'FUR A LUNG TIME AFTER IT OAS PSHERED INTU THIS OURLD UF SURRUO AND TRUPBLE BY THE WARISH SPRGEUN IT REMAINED A MATTER UF CUNSIDERABLE DUPBT OHETHER THE CHILD OUPLD SPRVIVE TU BEAR ANY NAME AT ALL IN OHICH CASE IT IS SUMEOHAT MURE THAN WRUBABLE THAT THESE MEMUIRS OUPLD NEVER HAVE AWWEARED UR IF THEY HAD THAT BEING CUMWRISED OITHIN A CUPWLE UF WAGES THEY OUPLD HAVE WUSSESSED THE INESTIMABLE MERIT UF BEING THE MUST CUNCISE AND FAITHFPL SWECIMEN UF BIUGRAWHY EXTANT IN THE LITERATPRE UF ANY AGE UR CUPNTRY '
+\end{lstlisting}
+        
+    If we run the same simulation again using the same intial conditions we
+might get different results due to the effects of simulated quneching.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{message}\PY{p}{,} \PY{n}{pairFreq}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+<@\color{outcolor}Out[{\color{outcolor}14}]:@> 'FOR A LONG TIME AFTER IT WAS USHERED INTO THIS WORLD OF SORROW AND TROUBLE BY THE PARISH SURGEON IT REMAINED A MATTER OF CONSIDERABLE DOUBT WHETHER THE CHILD WOULD SURVIVE TO BEAR ANY NAME AT ALL IN WHICH CASE IT IS SOMEWHAT MORE THAN PROBABLE THAT THESE MEMOIRS WOULD NEVER HAVE APPEARED OR IF THEY HAD THAT BEING COMPRISED WITHIN A COUPLE OF PAGES THEY WOULD HAVE POSSESSED THE INESTIMABLE MERIT OF BEING THE MOST CONCISE AND FAITHFUL SPECIMEN OF BIOGRAPHY EXTANT IN THE LITERATURE OF ANY AGE OR COUNTRY '
+\end{lstlisting}
+        
+    We could try to increase the number of steps but we will just remain
+stuck in the local minima. A way to remedy this problem is to run the
+decryption multiple times and see if there is a most common output
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{multi\PYZus{}run} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{message}\PY{p}{,} \PY{n}{pairFreq}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    we will need to transpose the output so that each row represents all of
+the outputs for a given character of our message
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{letter\PYZus{}cols} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{multi\PYZus{}run}\PY{p}{)}
+\end{Verbatim}
+
+    Now we can find the mode of each character position to find the final
+expected output
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(} \PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{p}{[}\PY{n}{Counter}\PY{p}{(}\PY{n}{letter\PYZus{}cols}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{letter\PYZus{}cols}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+<@\color{outcolor}Out[{\color{outcolor}17}]:@> 'FOR A LONG TIME AFTER IT WAS USHERED INTO THIS WORLD OF SORROW AND TROUBLE BY THE PARISH SURGEON IT REMAINED A MATTER OF CONSIDERABLE DOUBT WHETHER THE CHILD WOULD SURVIVE TO BEAR ANY NAME AT ALL IN WHICH CASE IT IS SOMEWHAT MORE THAN PROBABLE THAT THESE MEMOIRS WOULD NEVER HAVE APPEARED OR IF THEY HAD THAT BEING COMPRISED WITHIN A COUPLE OF PAGES THEY WOULD HAVE POSSESSED THE INESTIMABLE MERIT OF BEING THE MOST CONCISE AND FAITHFUL SPECIMEN OF BIOGRAPHY EXTANT IN THE LITERATURE OF ANY AGE OR COUNTRY '
+\end{lstlisting}
+        
+    It appears that our secret message was a quote from ``Oliver Twist''.
+With this method we can avoid depending on a single decryption that may
+have been stuck in a local maxima. The relatively short single
+decryption time (less than a second) allows for multiple runs to be used
+to build the most common result.
+
+    \subsection{Sampling Approach}\label{sampling-approach}
+
+    In the sampling approach we explore a representative distribution of
+``likelihood'' probabilities. We now rank a string as being english if
+the product of the \(M_{ij}\) is maximized \[
+\mbox{PI}(f) = \prod_{i=1}^{N-1} M(f(s_i),f(s_{i+1}))
+\] where \(N\) is the number of letters in the message, and \(s_i\) is
+the \(i^{th}\) letter of the encrypted message.
+
+However, to guard against underflow and overflow, we add a small
+\(\epsilon\) to the values of \(M_{ij}\) and work with the logarithm of
+\(\mbox{PI}(f)\). Thus, our likelihood function becomes:
+
+\[
+\log \mbox{PI}(f) = \sum_{i=1}^{N-1} \log M(f(s_i),f(s_{i+1}))
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{newM} \PY{o}{=} \PY{n}{pairFreq} \PY{o}{+} \PY{l+m+mf}{1e\PYZhy{}30}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{log\PYZus{}rate\PYZus{}string}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lookup} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{uppercase} \PY{o}{+} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{M}\PY{p}{[}\PY{n}{lookup}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{n}{lookup}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Since we are now working with log values of PI we take the differnce to
+determine the ratio and then exponentiate the result
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{samp\PYZus{}MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{M}\PY{p}{,} \PY{n}{myMap}\PY{p}{,} \PY{n}{nsteps} \PY{o}{=} \PY{l+m+mi}{3000}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{allSwaps} \PY{o}{=} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{combinations}\PY{p}{(}\PY{n}{string}\PY{o}{.}\PY{n}{uppercase}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+             \PY{n}{p} \PY{o}{=} \PY{n}{log\PYZus{}rate\PYZus{}string}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{oldS}\PY{p}{)}
+             \PY{n}{newp} \PY{o}{=} \PY{l+m+mf}{0.0001}
+             \PY{n}{oldmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{myMap}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+             \PY{n}{recP} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{recPstr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nsteps}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mySwap} \PY{o}{=} \PY{n}{allSwaps}\PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{allSwaps}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{newmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{key\PYZus{}swap}\PY{p}{(}\PY{n}{oldmap}\PY{p}{,} \PY{n}{mySwap}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{newS} \PY{o}{=} \PY{n}{encrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{newmap}\PY{p}{)}
+                 \PY{n}{newp} \PY{o}{=} \PY{n}{log\PYZus{}rate\PYZus{}string}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{newS}\PY{p}{)}
+                 \PY{n}{ratio}  \PY{o}{=} \PY{n}{newp} \PY{o}{\PYZhy{}} \PY{n}{p}
+                 \PY{n}{recP}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{ratio}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{oldmap} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{newmap}\PY{p}{)}
+                     \PY{n}{p} \PY{o}{=} \PY{n}{newp}
+                     \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+             \PY{n}{t1} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tdiff} \PY{o}{=} \PY{n}{t1}\PY{o}{\PYZhy{}}\PY{n}{t0}
+         
+             \PY{k}{print} \PY{l+s}{\PYZdq{}}\PY{l+s}{Total run time: }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{tdiff}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{+} \PY{l+s}{\PYZdq{}}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}
+             \PY{k}{print} \PY{l+s}{\PYZdq{}}\PY{l+s}{p = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+             \PY{k}{print} \PY{l+s}{\PYZdq{}}\PY{l+s}{Acceptance Ratio = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n+nb}{float}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{nsteps}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZpc{}}\PY{l+s}{\PYZsq{}}
+             \PY{k}{return} \PY{n}{recP}\PY{p}{,} \PY{n}{encrypt}\PY{p}{(}\PY{n}{oldS}\PY{p}{,} \PY{n}{oldmap}\PY{p}{)}
+\end{Verbatim}
+
+    We also keep a record of \(\log(\mbox{PI})\) to determine if our system
+has converged
+
+\subsubsection{Sampling Results}\label{sampling-results}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{recP}\PY{p}{,} \PY{n}{results} \PY{o}{=} \PY{n}{samp\PYZus{}MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{message}\PY{p}{,} \PY{n}{newM}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}
+         \PY{k}{print} \PY{n}{results}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+Total run time: 00:04.54s
+p = 5443.28545499
+Acceptance Ratio = 3.7\%
+FOR A LONG TIME AFTER IT WAS USHERED INTO THIS WORLD OF SORROW AND TROUBLE BY THE PARISH SURGEON IT REMAINED A MATTER OF CONSIDERABLE DOUBT WHETHER THE CHILD WOULD SURVIVE TO BEAR ANY NAME AT ALL IN WHICH CASE IT IS SOMEWHAT MORE THAN PROBABLE THAT THESE MEMOIRS WOULD NEVER HAVE APPEARED OR IF THEY HAD THAT BEING COMPRISED WITHIN A COUPLE OF PAGES THEY WOULD HAVE POSSESSED THE INESTIMABLE MERIT OF BEING THE MOST CONCISE AND FAITHFUL SPECIMEN OF BIOGRAPHY EXTANT IN THE LITERATURE OF ANY AGE OR COUNTRY
+    \end{lstlisting}
+
+    It appears that this method has produced the good results with a single
+run rather than depending on multiple runs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{recP}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{recP}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{MCS}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{r\PYZsq{}}\PY{l+s}{\PYZdl{}}\PY{l+s}{\PYZbs{}}\PY{l+s}{log(PI(f))\PYZdl{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <matplotlib.text.Text at 0x111d28490>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Cryptography Project_files/Cryptography Project_48_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the trace plot of \(\log(\mbox{PI})\) we can see that our result
+quickly converges on the answer. 
+
+    \section{A New Message}\label{a-new-message}
+
+Another test to perform is to give the functions a different message and
+see if it could crack the code. Lets generate a new secret and apply a
+different mapping so it will be encrypted
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{moreSecrets} \PY{o}{=} \PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{A FAKE SENTENCE TO TRY AND TEST OUT THE CODE ABOVE AND SEE HOW }\PY{l+s}{\PYZsq{}} \PY{o}{+}
+                        \PY{l+s}{\PYZsq{}}\PY{l+s}{WELL IT PERFORMS WITH A DIFFERENT INPUT BUT ALSO MAKING SURE }\PY{l+s}{\PYZsq{}} \PY{o}{+}
+                        \PY{l+s}{\PYZsq{}}\PY{l+s}{THAT IT LONG ENOUGH THAT WE CAN GET RESONABLE RESULTS IN A }\PY{l+s}{\PYZsq{}} \PY{o}{+}
+                        \PY{l+s}{\PYZsq{}}\PY{l+s}{SHORT AMOUNT OF TIME}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{another\PYZus{}map} \PY{o}{=} \PY{n}{get\PYZus{}map}\PY{p}{(}\PY{p}{)}
+         \PY{n}{codedSecret} \PY{o}{=} \PY{n}{encrypt}\PY{p}{(}\PY{n}{moreSecrets}\PY{p}{,} \PY{n}{another\PYZus{}map}\PY{p}{)}
+         \PY{n}{codedSecret}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+<@\color{outcolor}Out[{\color{outcolor}24}]:@> 'D CDTZ AZVGZVOZ GX GQU DVR GZAG XPG GNZ OXRZ DSXWZ DVR AZZ NXE EZLL YG KZQCXQFA EYGN D RYCCZQZVG YVKPG SPG DLAX FDTYVJ APQZ GNDG YG LXVJ ZVXPJN GNDG EZ ODV JZG QZAXVDSLZ QZAPLGA YV D ANXQG DFXPVG XC GYFZ'
+\end{lstlisting}
+        
+    Now our decryption method should work using the original mapping as a
+starting place
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{recP}\PY{p}{,} \PY{n}{results} \PY{o}{=} \PY{n}{samp\PYZus{}MC\PYZus{}decrypt}\PY{p}{(}\PY{n}{codedSecret}\PY{p}{,} \PY{n}{newM}\PY{p}{,} \PY{n}{myMap}\PY{p}{)}
+         \PY{k}{print} \PY{n}{results}
+\end{Verbatim}
+
+            \begin{lstlisting}[breaklines]
+Total run time: 00:01.88s
+p = 2173.12854282
+Acceptance Ratio = 4.93333333333\%
+A MAVE SENTENFE TO TRY AND TEST OUT THE FODE ABOKE AND SEE HOW WELL IT CERMORPS WITH A DIMMERENT INCUT BUT ALSO PAVING SURE THAT IT LONG ENOUGH THAT WE FAN GET RESONABLE RESULTS IN A SHORT APOUNT OM TIPE
+    \end{lstlisting}
+
+    It's done alright and the longer the sentence the better it will do.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{recP}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{recP}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{MCS}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{r\PYZsq{}}\PY{l+s}{\PYZdl{}PI(x)\PYZdl{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <matplotlib.text.Text at 0x111d42b50>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Cryptography Project_files/Cryptography Project_57_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Improvements}\label{improvements}
+
+    A major improvement to this method is to include more books in our
+generation of the pair frequency matrix. We were lucky that our message
+was actually contained in the books used. If that is not the case than
+having a wide variety of training texts is useful.
+
+One technique which was not explored would be to look at the single
+letter frequency in our inital message to pick a better inital mapping
+rather than just starting with a random mapping.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{nospaces} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{message}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{letter\PYZus{}counts} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{nospaces}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{letter\PYZus{}counts}\PY{p}{,} \PY{n}{orient}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{index}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{bar}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x111fdeb10>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Cryptography Project_files/Cryptography Project_60_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Matching this histogram with one of known frequencies could lead to a
+better initial mapping
+    \section{Conclusion}\label{conclusion}
+
+We cracked the code! Two methods were explored to perform our
+decryption. The first was an optimization technique where we
+reformulated the ``likelihood'' function to be additive instead of
+multiplicative. This led to a fast result but it was not reliable.
+Multiple runs were made and a most common output was determined to
+remedy this problem. Our secret message was found to be a passage from
+``Oliver Twist'', one of the texts used to build our pair frequency
+matrix. The second approach was from a sampling perspective and worked
+using the methods outlined in the instructions. Working with log values
+introduced some difficulties at first but ultimatly the first method was
+adapted with relative ease. Using the sampling approach allowed for a
+much more stable result in a shorter amount of time. Our sampling method
+was then tested on a new secret that was not included in the texts to
+build the pair frequency matrix and still performed well.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
